@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Face Detection", "Face Detection\Face Detection.csproj", "{92155430-4079-4CCE-B129-E866FCEC2C0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92155430-4079-4CCE-B129-E866FCEC2C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92155430-4079-4CCE-B129-E866FCEC2C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92155430-4079-4CCE-B129-E866FCEC2C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92155430-4079-4CCE-B129-E866FCEC2C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B3593E5-0C44-4129-B355-2E2FF38F5DB1}
+	EndGlobalSection
+EndGlobal
