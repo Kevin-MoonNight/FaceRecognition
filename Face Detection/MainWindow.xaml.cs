@@ -1,96 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
+using Face_Detection.Class;
 
 namespace Face_Detection
 {
     /// <summary>
     /// MainWindow.xaml 的互動邏輯
     /// </summary>
-    public partial class MainWindow : System.Windows.Window
+    public partial class MainWindow : Window
     {
-
-        VideoCapture camera;
-        bool camera_stop = false;
 
         public MainWindow()
         {
             InitializeComponent();
+            Init();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Init()
         {
-            camera = new VideoCapture(0);
-            camera_stop = false;
-            Start();
+            //啟用人臉偵測
+            Face.Init();
+            //載入所有鏡頭
+            Cameras_ViewTab.ItemsSource = Webcam.GetAllWebcam();
+
+            UI.SetUI(this);
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void StartDisplay_Click(object sender, RoutedEventArgs e)
         {
-            camera_stop = true;
-        }
-
-        private void Start()
-        {
-            if (camera.IsOpened())
+            if (Webcam.GetWebCam() != -1)
             {
-                while (true)
-                {
-                    image.Source = GetCameraImage();
-                    if (camera_stop)
-                    {
-                        image.Source = null;
-                        break;
-                    }
-                    Cv2.WaitKey(30);
-                }
+                Face.faceRecognition_Timer.Start();
+                new Task(new Action(() => { Webcam.Start(); })).Start();
+            }
+            else
+            {
+                MessageBox.Show("Please Select Webcam！");
+            }
+
+        }
+
+        private void StopDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            Webcam.Stop();
+            Face.Stop();
+            User.Reset();
+        }
+
+        private void Cameras_ViewTab_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            Device camera = ((Device)e.NewValue);
+
+            Webcam.SetWebCam(camera.id);
+        }
+
+        private void AddUser_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string user_name = AddUser_Textbox.Text;
+            if (user_name == "")
+            {
+                MessageBox.Show("Please enter name！", "ERROR", MessageBoxButton.OK);
+            }
+            else
+            {
+                new Task(() => User.AddUser(user_name)).Start();
             }
         }
-
-        private ImageSource GetCameraImage()
-        {
-            Mat frame = new Mat();
-            camera.Read(frame);
-
-            ImageSource result;
-            result = MatToImageSource(frame);
-            return result;
-        }
-
-        private BitmapImage MatToImageSource(Mat frame)
-        {
-            Bitmap bitmap;
-            bitmap = BitmapConverter.ToBitmap(frame);
-
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage result = new BitmapImage();
-                result.BeginInit();
-                result.StreamSource = memory;
-                result.CacheOption = BitmapCacheOption.OnLoad;
-                result.EndInit();
-
-                return result;
-            }
-        }
-
 
     }
 }

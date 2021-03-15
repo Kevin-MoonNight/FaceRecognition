@@ -1,2 +1,0 @@
-# Face-Detection
-Face Detection

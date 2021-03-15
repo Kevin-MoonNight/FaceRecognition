@@ -5,11 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Face_Detection"
         mc:Ignorable="d"
-        Title="Face Detection" Height="450" Width="800">
-    <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="400" Margin="329,10,0,0" VerticalAlignment="Top" Width="455"/>
-        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="128,76,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="button1" Content="Stop" HorizontalAlignment="Left" Margin="128,179,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        Title="Face Detection" Height="510" Width="797.6" Background="White">
+    
+    <Grid Background="#FFE5E5E5">
+        <Image x:Name="Display_Image" HorizontalAlignment="Left" Height="446" Margin="314,10,0,0" VerticalAlignment="Top" Width="455"/>
+        <Button x:Name="StartDisplay" Content="Start" HorizontalAlignment="Left" Margin="136,40,0,0" VerticalAlignment="Top" Width="75" Click="StartDisplay_Click"/>
+        <Button x:Name="StopDisplay" Content="Stop" HorizontalAlignment="Left" Margin="216,40,0,0" VerticalAlignment="Top" Width="75" Click="StopDisplay_Click"/>
+        <Label x:Name="UserName_Label" Content="User：" HorizontalAlignment="Left" Margin="136,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.648,-0.839"/>
+        <Button x:Name="AddUser_Button" Content="Add User" HorizontalAlignment="Left" Margin="136,100,0,0" VerticalAlignment="Top" Width="75" Click="AddUser_Button_Click"/>
+        <TextBox x:Name="AddUser_Textbox" HorizontalAlignment="Left" Height="23" Margin="136,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
 
+        <TreeView x:Name="Cameras_ViewTab" Background="White" Margin="10,10,660.2,214.4" SelectedItemChanged="Cameras_ViewTab_SelectedItemChanged">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Device}"  >
+                    <TextBlock Text="{Binding name}" Tag="{Binding id}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+      
     </Grid>
+    
 </Window>
