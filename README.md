@@ -1,5 +1,5 @@
-# Face-Detection
-Face Detection
+# FaceRecognition
+FaceRecognition
 
 請使用x64執行
 
